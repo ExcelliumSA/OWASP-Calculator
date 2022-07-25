@@ -1,6 +1,4 @@
-> _Made with ❤️ in Spain_
-  
-> _Forked with ❤️ in Luxemburg_
+> _Made with ❤️ in Spain and Forked with ❤️ in Luxemburg_
 
 <div align="center">
   <h1>OWASP Risk Assessment Calculator</h1>
