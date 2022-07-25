@@ -102,8 +102,13 @@ function calculate(){
   + $("#s").val() +
   + $("#ed").val() +
   + $("#ee").val() +
-  + $("#a").val() +
-  + $("#id").val() + 0;
+  + $("#a").val();
+  if (document.getElementById("use special").checked) {
+    LS += + $("#ids").val() + 0;
+  } else {
+    LS += + $("#id").val() + 0;
+  }
+
   dataset.push($("#sl").val());
   dataset.push($("#m").val());
   dataset.push($("#o").val());
@@ -111,7 +116,12 @@ function calculate(){
   dataset.push($("#ed").val());
   dataset.push($("#ee").val());
   dataset.push($("#a").val());
-  dataset.push($("#id").val());
+  if (document.getElementById("use special").checked) {
+    dataset.push($("#ids").val());
+
+  } else {
+    dataset.push($("#id").val());
+  }
 
   // Get values TECHNICAL IMPACT FACTORS and BUSINESS IMPACT FACTORS
   IS = + $("#lc").val() +
@@ -287,4 +297,14 @@ function updateRiskChart(dataset, RS){
   riskChart.data.datasets[0].borderColor = colors[c];
 
   riskChart.update();
+}
+
+function changeID(checkbox) {
+    if(checkbox.checked == true){
+        document.getElementById("Intrusion detection - standard").setAttribute("style", "display:none");
+        document.getElementById("Intrusion detection - special").removeAttribute("style");
+    } else {
+        document.getElementById("Intrusion detection - special").setAttribute("style", "display:none");
+        document.getElementById("Intrusion detection - standard").removeAttribute("style");
+   }
 }
