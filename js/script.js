@@ -225,8 +225,14 @@ function getRisk(score){
 // Calculate final Risk Serverity
 function getCriticaly(L, I){
   //NOTE
-  if(L == "LOW" && I == "LOW") return 'NOTE';
-
+  if(L == "LOW" && I == "LOW") {
+    if (document.getElementById("use special").checked) {
+      return 'INFO';
+    } else {
+      return 'NOTE';
+    }
+  }
+  
   //LOW
   if(L == "LOW" && I == "MEDIUM") return 'LOW';
   if(L == "MEDIUM" && I == "LOW") return 'LOW';
