@@ -96,7 +96,7 @@ function calculate(){
   + $("#s").val() +
   + $("#ed").val() +
   + $("#ee").val() +
-  + $("#a").val();
+  + $("#a").val() + 0;
   if (document.getElementById("use special").checked) { // XLM
     LS += + $("#ids").val() + 0;
   } else {
@@ -117,26 +117,31 @@ function calculate(){
     dataset.push($("#id").val());
   }
 
+  var LS = (LS/8).toFixed(3);
+
   // Get values TECHNICAL IMPACT FACTORS and BUSINESS IMPACT FACTORS
   IS = + $("#lc").val() +
   + $("#li").val() +
   + $("#lav").val() +
-  + $("#lac").val() +
-  + $("#fd").val() +
-  + $("#rd").val() +
-  + $("#nc").val() +
-  + $("#pv").val() + 0;
+  + $("#lac").val() + 0;
+  var IS = (IS/4).toFixed(3);
+  if (!document.getElementById("disable BIF").checked) {
+    IS += + $("#fd").val() +
+    + $("#rd").val() +
+    + $("#nc").val() +
+    + $("#pv").val() + 0;
+    IS = (IS/8).toFixed(3);
+  }
   dataset.push($("#lc").val());
   dataset.push($("#li").val());
   dataset.push($("#lav").val());
   dataset.push($("#lac").val());
-  dataset.push($("#fd").val());
-  dataset.push($("#rd").val());
-  dataset.push($("#nc").val());
-  dataset.push($("#pv").val());
-  
-  var LS = (LS/8).toFixed(3);
-  var IS = (IS/8).toFixed(3);
+  if (!document.getElementById("disable BIF").checked) {
+    dataset.push($("#fd").val());
+    dataset.push($("#rd").val());
+    dataset.push($("#nc").val());
+    dataset.push($("#pv").val());
+  } 
 
   var FLS = getRisk(LS);
   var FIS = getRisk(IS);
@@ -293,14 +298,15 @@ function updateRiskChart(dataset, RS){
     threats = ["Skills required", "Motive", "Opportunity", "Population Size",
     "Easy of Discovery", "Ease of Exploit", "Awareness", "Connectivity",
     "Loss of confidentiality", "Loss of Integrity", "Loss of Availability", "Loss of Accountability",
-    "Financial damage", "Reputation damage", "Non-Compliance", "Privacy violation"
     ];
   } else {
     threats = ["Skills required", "Motive", "Opportunity", "Population Size",
     "Easy of Discovery", "Ease of Exploit", "Awareness", "Intrusion Detection",
     "Loss of confidentiality", "Loss of Integrity", "Loss of Availability", "Loss of Accountability",
-    "Financial damage", "Reputation damage", "Non-Compliance", "Privacy violation"
     ];
+  }
+  if (!document.getElementById("disable BIF").checked) {
+    threats = threats.concat("Financial damage", "Reputation damage", "Non-Compliance", "Privacy violation");
   }
 
   riskChart.data.labels = threats;
@@ -326,29 +332,25 @@ function disableBIF(checkbox) {
   if (checkbox.checked == true) {
     document.getElementById("BIF").setAttribute("disabled", "disabled");
     var opt = document.createElement('option');
-    opt.value = 5;
-    opt.innerHTML = "Disabled (5)";
+    opt.innerHTML = "Disabled";
     opt.id = "disFD"
     opt.selected = true;
     var select = document.getElementById('fd');
     select.appendChild(opt);
     opt = document.createElement('option');
-    opt.value = 5;
-    opt.innerHTML = "Disabled (5)";
+    opt.innerHTML = "Disabled";
     opt.id = "disRD"
     opt.selected = true;
     select = document.getElementById('rd');
     select.appendChild(opt);
     opt = document.createElement('option');
-    opt.value = 5;
-    opt.innerHTML = "Disabled (5)";
+    opt.innerHTML = "Disabled";
     opt.id = "disNC"
     opt.selected = true;
     select = document.getElementById('nc');
     select.appendChild(opt);
     opt = document.createElement('option');
-    opt.value = 5;
-    opt.innerHTML = "Disabled (5)";
+    opt.innerHTML = "Disabled";
     opt.id = "disPV"
     opt.selected = true;
     select = document.getElementById('pv');
@@ -360,4 +362,8 @@ function disableBIF(checkbox) {
     document.getElementById("disNC").remove();
     document.getElementById("disPV").remove();
   }
+}
+
+function risk() {
+  document.location = "https://www.warzone.com/SinglePlayer?Level=21"
 }
