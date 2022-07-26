@@ -19,12 +19,6 @@ const backgrounds = [
   'rgba(144, 238, 144, 0.5)'
 ];
 
-const threats = ["Skills required", "Motive", "Opportunity", "Population Size",
-"Easy of Discovery", "Ease of Exploit", "Awareness", "Intrusion Detection",
-"Loss of confidentiality", "Loss of Integrity", "Loss of Availability", "Loss of Accountability",
-"Financial damage", "Reputation damage", "Non-Compliance", "Privacy violation"
-];
-
 const partials = ["sl", "m", "o", "s", "ed", "ee", "a", "id", "lc", "li", "lav", "lac", "fd", "rd", "nc", "pv"];
 
 const riskChartOptions = {
@@ -103,7 +97,7 @@ function calculate(){
   + $("#ed").val() +
   + $("#ee").val() +
   + $("#a").val();
-  if (document.getElementById("use special").checked) {
+  if (document.getElementById("use special").checked) { // XLM
     LS += + $("#ids").val() + 0;
   } else {
     LS += + $("#id").val() + 0;
@@ -116,7 +110,7 @@ function calculate(){
   dataset.push($("#ed").val());
   dataset.push($("#ee").val());
   dataset.push($("#a").val());
-  if (document.getElementById("use special").checked) {
+  if (document.getElementById("use special").checked) { // XLM
     dataset.push($("#ids").val());
 
   } else {
@@ -158,7 +152,11 @@ function calculate(){
   score = score + 'ED:' + $("#ed").val() + '/';
   score = score + 'EE:' + $("#ee").val() + '/';
   score = score + 'A:' + $("#a").val() + '/';
-  score = score + 'ID:' + $("#id").val() + '/';
+  if (document.getElementById("use special").checked) { // XLM
+    score = score + 'ID:' + $("#ids").val() + '/';
+  } else {
+    score = score + 'ID:' + $("#id").val() + '/';
+  }
   score = score + 'LC:' + $("#lc").val() + '/';
   score = score + 'LI:' + $("#li").val() + '/';
   score = score + 'LAV:' + $("#lav").val() + '/';
@@ -290,6 +288,21 @@ function updateRiskChart(dataset, RS){
       break;
   }
 
+  var threats;
+  if (document.getElementById("use special").checked) { // XLM
+    threats = ["Skills required", "Motive", "Opportunity", "Population Size",
+    "Easy of Discovery", "Ease of Exploit", "Awareness", "Connectivity",
+    "Loss of confidentiality", "Loss of Integrity", "Loss of Availability", "Loss of Accountability",
+    "Financial damage", "Reputation damage", "Non-Compliance", "Privacy violation"
+    ];
+  } else {
+    threats = ["Skills required", "Motive", "Opportunity", "Population Size",
+    "Easy of Discovery", "Ease of Exploit", "Awareness", "Intrusion Detection",
+    "Loss of confidentiality", "Loss of Integrity", "Loss of Availability", "Loss of Accountability",
+    "Financial damage", "Reputation damage", "Non-Compliance", "Privacy violation"
+    ];
+  }
+
   riskChart.data.labels = threats;
   riskChart.data.datasets[0].data = dataset;
   riskChart.data.datasets[0].pointBackgroundColor = colors[c];
@@ -300,11 +313,51 @@ function updateRiskChart(dataset, RS){
 }
 
 function changeID(checkbox) {
-    if(checkbox.checked == true){
-        document.getElementById("Intrusion detection - standard").setAttribute("style", "display:none");
-        document.getElementById("Intrusion detection - special").removeAttribute("style");
-    } else {
-        document.getElementById("Intrusion detection - special").setAttribute("style", "display:none");
-        document.getElementById("Intrusion detection - standard").removeAttribute("style");
-   }
+  if (checkbox.checked == true) {
+      document.getElementById("Intrusion detection - standard").setAttribute("style", "display:none");
+      document.getElementById("Intrusion detection - special").removeAttribute("style");
+  } else {
+      document.getElementById("Intrusion detection - special").setAttribute("style", "display:none");
+      document.getElementById("Intrusion detection - standard").removeAttribute("style");
+  }
+}
+
+function disableBIF(checkbox) {
+  if (checkbox.checked == true) {
+    document.getElementById("BIF").setAttribute("disabled", "disabled");
+    var opt = document.createElement('option');
+    opt.value = 5;
+    opt.innerHTML = "Disabled (5)";
+    opt.id = "disFD"
+    opt.selected = true;
+    var select = document.getElementById('fd');
+    select.appendChild(opt);
+    opt = document.createElement('option');
+    opt.value = 5;
+    opt.innerHTML = "Disabled (5)";
+    opt.id = "disRD"
+    opt.selected = true;
+    select = document.getElementById('rd');
+    select.appendChild(opt);
+    opt = document.createElement('option');
+    opt.value = 5;
+    opt.innerHTML = "Disabled (5)";
+    opt.id = "disNC"
+    opt.selected = true;
+    select = document.getElementById('nc');
+    select.appendChild(opt);
+    opt = document.createElement('option');
+    opt.value = 5;
+    opt.innerHTML = "Disabled (5)";
+    opt.id = "disPV"
+    opt.selected = true;
+    select = document.getElementById('pv');
+    select.appendChild(opt);
+  } else {
+    document.getElementById("BIF").removeAttribute("disabled");
+    document.getElementById("disFD").remove();
+    document.getElementById("disRD").remove();
+    document.getElementById("disNC").remove();
+    document.getElementById("disPV").remove();
+  }
 }

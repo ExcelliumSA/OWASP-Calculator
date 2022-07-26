@@ -201,49 +201,53 @@
         <!-- BUSINESS IMPACT FACTORS -->
         <section>
           <h5 class="border-bottom" title="The business impact stems from the technical impact, but requires a deep understanding of what is important to the company running the application. In general, you should be aiming to support your risks with business impact, particularly if your audience is executive level. The business risk is what justifies investment in fixing security problems.">Business Impact Factors</h5>
-          <div class="row">
-            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much financial damage will result from an exploit?">Financial damage</div>
-            <div class="col-8">
-              <select class="form-control" aria-label=".form-select-sm example" id="fd" name="fd" onchange="calculate()">
-                <option value="1">Less than the cost to fix the vulnerability (1)</option>
-                <option value="3">Minor effect on annual profit (3)</option>
-                <option value="7">Significant effect on annual profit (7)</option>
-                <option value="9">Bankruptcy (9)</option>
-              </select>
+          <input type="checkbox" id="disable BIF" onchange='disableBIF(this); calculate()'>
+          <label for="disable BIF">Diable Business Impact Factors</label><br>
+          <fieldset id="BIF">
+            <div class="row">
+              <div class="h6 nomargin col-4 d-flex align-items-center" title="How much financial damage will result from an exploit?">Financial damage</div>
+              <div class="col-8">
+                <select class="form-control" aria-label=".form-select-sm example" id="fd" name="fd" onchange="calculate()">
+                  <option value="1">Less than the cost to fix the vulnerability (1)</option>
+                  <option value="3">Minor effect on annual profit (3)</option>
+                  <option value="7">Significant effect on annual profit (7)</option>
+                  <option value="9">Bankruptcy (9)</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="h6 nomargin col-4 d-flex align-items-center" title="Would an exploit result in reputation damage that would harm the business?">Reputation damage</div>
-            <div class="col-8">
-              <select class="form-control" aria-label=".form-select-sm example" id="rd" name="rd" onchange="calculate()">
-                <option value="1">Minimal damage (1)</option>
-                <option value="4">Loss of major accounts (4)</option>
-                <option value="5">Loss of goodwill (5)</option>
-                <option value="9">Brand damage (9)</option>
-              </select>
+            <div class="row">
+              <div class="h6 nomargin col-4 d-flex align-items-center" title="Would an exploit result in reputation damage that would harm the business?">Reputation damage</div>
+              <div class="col-8">
+                <select class="form-control" aria-label=".form-select-sm example" id="rd" name="rd" onchange="calculate()">
+                  <option value="1">Minimal damage (1)</option>
+                  <option value="4">Loss of major accounts (4)</option>
+                  <option value="5">Loss of goodwill (5)</option>
+                  <option value="9">Brand damage (9)</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much exposure does non-compliance introduce?">Non-compliance</div>
-            <div class="col-8">
-              <select class="form-control" aria-label=".form-select-sm example" id="nc" name="nc" onchange="calculate()">
-                <option value="2">Minor violation (2)</option>
-                <option value="5">Clear violation (5)</option>
-                <option value="7">High profile violation (7)</option>
-              </select>
+            <div class="row">
+              <div class="h6 nomargin col-4 d-flex align-items-center" title="How much exposure does non-compliance introduce?">Non-compliance</div>
+              <div class="col-8">
+                <select class="form-control" aria-label=".form-select-sm example" id="nc" name="nc" onchange="calculate()">
+                  <option value="2">Minor violation (2)</option>
+                  <option value="5">Clear violation (5)</option>
+                  <option value="7">High profile violation (7)</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="h6 nomargin col-4 d-flex align-items-center" title="How much personally identifiable information could be disclosed?">Privacy violation</div>
-            <div class="col-8">
-              <select class="form-control" aria-label=".form-select-sm example" id="pv" name="pv" onchange="calculate()">
-                <option value="3">One individual (3)</option>
-                <option value="5">Hundreds of people (5)</option>
-                <option value="7">Thousands of people (7)</option>
-                <option value="9">Millions of people (9)</option>
-              </select>
+            <div class="row">
+              <div class="h6 nomargin col-4 d-flex align-items-center" title="How much personally identifiable information could be disclosed?">Privacy violation</div>
+              <div class="col-8">
+                <select class="form-control" aria-label=".form-select-sm example" id="pv" name="pv" onchange="calculate()">
+                  <option value="3">One individual (3)</option>
+                  <option value="5">Hundreds of people (5)</option>
+                  <option value="7">Thousands of people (7)</option>
+                  <option value="9">Millions of people (9)</option>
+                </select>
+              </div>
             </div>
-          </div>
+          </fieldset>
         </section>
       </div>
 
@@ -264,7 +268,7 @@
 
       <!-- CREDITS -->
       <section>
-        <div>
+        <div> <!-- TODO adapt vector to modifications -->
           <b>VECTOR: </b><a id="score" href="https://javierolmedo.github.io/OWASP-Calculator/?vector=(SL:1/M:1/O:0/S:2/ED:1/EE:1/A:1/ID:2/LC:2/LI:1/LAV:1/LAC:1/FD:1/RD:1/NC:2/PV:3)" target="_blank">(SL:1/M:1/O:0/S:2/ED:1/EE:1/A:1/ID:2/LC:2/LI:1/LAV:1/LAC:1/FD:1/RD:1/NC:2/PV:3)</a>
           <br>
           <a href="#exampleModalCenter" data-toggle="modal">How is Severity Risk caculated?</a>
