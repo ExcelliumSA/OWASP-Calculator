@@ -68,7 +68,7 @@ function loadVectors(vector) {
   vector = vector.replace('(', '').replace(')', '');
   var values = vector.split('/');
 
-  if (values.length == 16) {
+  if (values.length == 16 || values.length == 12) {
     for (let i=0; i<values.length; i++) {
         let aux = values[i].split(':');
         let vector = aux[1];
@@ -165,14 +165,17 @@ function calculate(){
   score = score + 'LC:' + $("#lc").val() + '/';
   score = score + 'LI:' + $("#li").val() + '/';
   score = score + 'LAV:' + $("#lav").val() + '/';
-  score = score + 'LAC:' + $("#lac").val() + '/';
-  score = score + 'FD:' + $("#fd").val() + '/';
-  score = score + 'RD:' + $("#rd").val() + '/';
-  score = score + 'NC:' + $("#nc").val() + '/';
-  score = score + 'PV:' + $("#pv").val();
+  score = score + 'LAC:' + $("#lac").val();
+  if (! document.getElementById("disable BIF").checked) {
+    score = score + '/';
+    score = score + 'FD:' + $("#fd").val() + '/';
+    score = score + 'RD:' + $("#rd").val() + '/';
+    score = score + 'NC:' + $("#nc").val() + '/';
+    score = score + 'PV:' + $("#pv").val();
+  }
   score = score + ')';
   $('#score').text(score);
-  $("#score").attr("href", "https://javierolmedo.github.io/OWASP-Calculator/?vector=" + score);
+  $("#score").attr("href", "../OWASP-Calculator/?vector=" + score);
 
   if(getRisk(LS) == "LOW"){
       $(".LS").addClass("classNote");
