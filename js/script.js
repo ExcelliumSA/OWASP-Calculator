@@ -137,13 +137,14 @@ function calculate(){
   + $("#li").val() +
   + $("#lav").val() +
   + $("#lac").val() + 0;
-  var IS = (IS/4).toFixed(3);
   if (!document.getElementById("disable BIF").checked) {
     IS += + $("#fd").val() +
     + $("#rd").val() +
     + $("#nc").val() +
     + $("#pv").val() + 0;
-    IS = (IS/8).toFixed(3);
+    var IS = (IS/8).toFixed(3);
+  } else {
+    var IS = (IS/4).toFixed(3);
   }
   dataset.push($("#lc").val());
   dataset.push($("#li").val());
@@ -389,3 +390,5 @@ function disableBIF(checkbox) {
 function risk() {
   document.location = "https://www.warzone.com/SinglePlayer?Level=21"
 }
+
+calculate();
