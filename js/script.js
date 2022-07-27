@@ -68,12 +68,25 @@ function loadVectors(vector) {
   vector = vector.replace('(', '').replace(')', '');
   var values = vector.split('/');
 
+  if (values.length == 12) {
+    var disBIF = document.getElementById("disable BIF");
+    disBIF.checked = true;
+    disableBIF(disBIF);
+  }
+
   if (values.length == 16 || values.length == 12) {
     for (let i=0; i<values.length; i++) {
         let aux = values[i].split(':');
         let vector = aux[1];
         console.log(vector)
-        $("#" + partials[i].toLowerCase()).val(vector);
+        if (aux[0] === 'C') {
+          var usespec = document.getElementById("use special");
+          usespec.checked = true;
+          changeID(usespec);
+          $("#ids").val(vector);
+        } else {
+          $("#" + partials[i].toLowerCase()).val(vector);
+        }
     }
   } else {
     swal("Hey!!", "The vector is not correct, make sure you have copied correctly", "error");
@@ -158,7 +171,7 @@ function calculate(){
   score = score + 'EE:' + $("#ee").val() + '/';
   score = score + 'A:' + $("#a").val() + '/';
   if (document.getElementById("use special").checked) { // XLM
-    score = score + 'ID:' + $("#ids").val() + '/';
+    score = score + 'C:' + $("#ids").val() + '/';
   } else {
     score = score + 'ID:' + $("#id").val() + '/';
   }
